@@ -55,6 +55,18 @@ public class Individual {
         return genes;
     }
 
+    public int computeFitness(){
+        fitnessScore = 0;
+        int j = 0;
+        for(int i = this.genes.length-1; 0 <=i; i--){
+            if(genes[i] == 1){
+                fitnessScore += Math.pow(2, j);
+            }
+            j++;
+        }
+        return fitnessScore;
+    }
+
     @Override
     public String toString()
     {
@@ -64,9 +76,8 @@ public class Individual {
         }
         ret += "'";
 
-        // TODO Fitness
-        //ret += "\nFitness: " + computeFitness() + "\n";
-        ret += "\nFitness: '" + 0 + "'\n";
+        ret += "\nFitness: " + computeFitness() + "\n";
+
         return ret;
     }
 }
