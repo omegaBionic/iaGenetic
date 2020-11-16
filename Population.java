@@ -86,9 +86,14 @@ public class Population {
     @Override
     public String toString()
     {
-        return "Population{" +
-                "individuals=" + Arrays.toString(individuals) +
-                ", genesPerPop=" + genesPerPop +
-                '}';
+        String ret = "Population: ";
+        for(int i = 0; i < individuals.length; i++){
+            ret += "Individual: '" + i + "'\n";
+            ret += individuals[i];
+            ret += "\n";
+        }
+
+        ret += "\ngenesPerPop: '" + genesPerPop + "'";
+        return ret;
     }
 }
