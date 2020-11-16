@@ -58,8 +58,15 @@ public class Individual {
     @Override
     public String toString()
     {
-        return "Individual{" +
-                "genes=" + Arrays.toString(genes) +
-                '}';
+        String ret = "Genes: '";
+        for(int i = 0; i < genes.length; i++){
+            ret += genes[i];
+        }
+        ret += "'";
+
+        // TODO Fitness
+        //ret += "\nFitness: " + computeFitness() + "\n";
+        ret += "\nFitness: '" + 0 + "'\n";
+        return ret;
     }
 }
