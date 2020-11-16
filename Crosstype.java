@@ -1,4 +1,3 @@
-public enum Crosstype
-{
+public enum Crosstype {
     ROULETTE, TOURNOI
 }
