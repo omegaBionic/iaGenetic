@@ -76,7 +76,7 @@ public class Individual {
         }
         ret += "'";
 
-        ret += "\nFitness: " + computeFitness() + "\n";
+        ret += "\nFitness: '" + computeFitness() + "'\n";
 
         return ret;
     }
