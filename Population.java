@@ -65,10 +65,9 @@ public class Population {
      * @param crosspoint index of the crosspoint
      * @return an array of 2 individuals
      */
-    public Individual[] reproduceIndividuals(Individual firstParent, Individual secondParent, int crosspoint)
-            throws ExecutionControl.NotImplementedException
+    public Individual reproduceIndividuals(Individual firstParent, Individual secondParent, int crosspoint)
     {
-        Individual[] offsprings = new Individual[2];
+        Individual offsprings = new Individual(4);
 
 //        int[] firstChildGenes = new int[genesPerPop];
 //        int[] secondChildGenes = new int[genesPerPop];
@@ -109,6 +108,47 @@ public class Population {
                 }
             }
         }
+
+        // For all childs
+        for(int i = 0; i < individuals.length; i += 2){
+            System.out.println("child number : '" + i + "'");
+            // Get parents
+            for(int j = 0; j < 2; j++){
+                // Calculate rand with fitness
+                if(fitnessSum == 0){
+                    fitnessSum = 1;
+                }
+                int rand = (new Random().nextInt(fitnessSum));
+                System.out.println("individuals rand: '" + rand + "'");
+
+                int k = 0;
+                int count = 0;
+                while(count < rand){
+                    count += individuals[k].computeFitness();
+                    k++;
+                }
+                if(k == 0){
+                    k = 1;
+                }
+//                DEBUG
+//                System.out.println("j: '" + j + "'");
+//                System.out.println("k: '" + k + "'");
+//                System.out.println("individuals[j - 1]: '" + individuals[j - 1] + "'");
+
+                // Save two parents
+                parents[j] = individuals[k - 1];
+                System.out.println("parents[" + j + "]: '" + parents[j] + "'");
+            }
+            // Generate child and append
+            int CrossPointRand = new Random().nextInt(genesPerPop); // TODO: Change 15
+            childs[i] = this.reproduceIndividuals(parents[0], parents[1], CrossPointRand);
+            if(i < individuals.length-1){
+                childs[i+1] = this.reproduceIndividuals(parents[1], parents[0], CrossPointRand);
+            }
+        }
+
+        // Affect childs to new population
+        individuals = childs;
     }
 
 
