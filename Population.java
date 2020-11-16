@@ -63,14 +63,34 @@ public class Population {
      * @return an array of 2 individuals
      */
     public Individual reproduceIndividuals(Individual firstParent, Individual secondParent, int crosspoint) {
-        Individual offsprings = new Individual(4);
+        Individual offsprings = new Individual(genesPerPop);
 
-//        int[] firstChildGenes = new int[genesPerPop];
-//        int[] secondChildGenes = new int[genesPerPop];
-//        ToDo compute the genes
-//        ToDo compute a possible mutation of a gene
-//        offsprings[0] = new Individual(firstChildGenes);
-//        offsprings[1] = new Individual(secondChildGenes);
+        int[] childGenes = new int[genesPerPop];
+
+        // Get childGenes from first parent
+        for(int i=0; i < crosspoint; i++){
+            childGenes[i] = firstParent.getGenes()[i];
+        }
+
+        // Get childGenes from second parent
+        for(int i=crosspoint; i < genesPerPop; i++){
+            childGenes[i] = secondParent.getGenes()[i];
+        }
+
+//        // DEBUG parents and child
+//        System.out.println("crosspoint: '" + crosspoint + "'");
+//        for(int i=0; i < genesPerPop; i++){
+//            System.out.println("firstParent.getGenes()[" + i + "]: '" + firstParent.getGenes()[i] + "'");
+//        }
+//        System.out.println("-----------");
+//        for(int i=0; i < genesPerPop; i++){
+//            System.out.println("secondParent.getGenes()["+ i + "]: '" + secondParent.getGenes()[i] + "'");
+//        }
+//        System.out.println("-----------");
+//        for(int i=0; i < genesPerPop; i++){
+//            System.out.println("childGenes[" + i + "]: '" + childGenes[i] + "'");
+//        }
+//        System.out.println("------------------------");
 
         return offsprings;
     }
@@ -136,7 +156,7 @@ public class Population {
                 System.out.println("parents[" + j + "]: '" + parents[j] + "'");
             }
             // Generate child and append
-            int CrossPointRand = new Random().nextInt(genesPerPop); // TODO: Change 15
+            int CrossPointRand = new Random().nextInt(genesPerPop);
             childs[i] = this.reproduceIndividuals(parents[0], parents[1], CrossPointRand);
             if (i < individuals.length - 1) {
                 childs[i + 1] = this.reproduceIndividuals(parents[1], parents[0], CrossPointRand);
