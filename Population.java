@@ -2,10 +2,10 @@ import java.util.Random;
 
 public class Population {
 
-    private Individual[] individuals;
     private final int genesPerPop;
     private final Crosstype crosstype;
     private final float mutationChance;
+    private Individual[] individuals;
     private int popSize;
 
     /**
@@ -63,21 +63,19 @@ public class Population {
      * @return an array of 2 individuals
      */
     public Individual reproduceIndividuals(Individual firstParent, Individual secondParent, int crosspoint) {
-        Individual offsprings = new Individual(genesPerPop);
-
         int[] childGenes = new int[genesPerPop];
 
         // Get childGenes from first parent
-        for(int i=0; i < crosspoint; i++){
+        for (int i = 0; i < crosspoint; i++) {
             childGenes[i] = firstParent.getGenes()[i];
         }
 
         // Get childGenes from second parent
-        for(int i=crosspoint; i < genesPerPop; i++){
+        for (int i = crosspoint; i < genesPerPop; i++) {
             childGenes[i] = secondParent.getGenes()[i];
         }
 
-//        // DEBUG parents and child
+//        DEBUG parents and child
 //        System.out.println("crosspoint: '" + crosspoint + "'");
 //        for(int i=0; i < genesPerPop; i++){
 //            System.out.println("firstParent.getGenes()[" + i + "]: '" + firstParent.getGenes()[i] + "'");
@@ -92,6 +90,7 @@ public class Population {
 //        }
 //        System.out.println("------------------------");
 
+        Individual offsprings = new Individual(childGenes);
         return offsprings;
     }
 
