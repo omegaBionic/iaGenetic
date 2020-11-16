@@ -29,15 +29,16 @@ public class TP2 {
         //Crosstype crosstype = Crosstype.TOURNOI;
         float mutationChance = 0.05f;
 
+        // Initial population
         Population pop = new Population(popSize, genesPerPop, crosstype, mutationChance);
+        //System.out.println(pop);
 
-        System.out.println(pop);
 
         for(int epoch=0; epoch<50; epoch++)
         {
-            //Population newPop = pop.generateNewPopulation();
+            pop.generateNewPopulation();
 
-            //pop = newPop;
         }
+        System.out.println(pop);
     }
 }

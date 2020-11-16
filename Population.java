@@ -1,6 +1,7 @@
 import jdk.jshell.spi.ExecutionControl;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class Population {
 
@@ -8,6 +9,7 @@ public class Population {
     private int genesPerPop;
     private Crosstype crosstype;
     private float mutationChance;
+    private int popSize;
 
     /**
      * Representation of a population of pseudo-randomly generated individuals
@@ -22,6 +24,7 @@ public class Population {
         this.genesPerPop = genesPerPop;
         this.crosstype = crosstype;
         this.mutationChance = mutationChance;
+        this.popSize = popSize;
         for(int i=0; i<popSize; i++)
             this.individuals[i] = new Individual(genesPerPop);
     }
@@ -45,20 +48,14 @@ public class Population {
      * Creates a new population using this generation's individuals
      * @return the newly generated population
      */
-    public Population generateNewPopulation() throws ExecutionControl.NotImplementedException
-    {
-        throw new ExecutionControl.NotImplementedException("Method generateNewPopulation has not been implemented yet.");
-        /*
-
-        Utilisez les CROSSTYPE ici pour différencier le type de sélection
-
+    public void generateNewPopulation() {
         if(this.crosstype == Crosstype.ROULETTE)
         {
-            //ToDo generate using a ROULETTE crosstype
+            this.roulette();
         }
         else{
-            //ToDo generate using a TOURNOI crosstype
-        }*/
+            // TODO
+        }
     }
 
     /**
@@ -80,8 +77,40 @@ public class Population {
 //        offsprings[0] = new Individual(firstChildGenes);
 //        offsprings[1] = new Individual(secondChildGenes);
 
-        throw new ExecutionControl.NotImplementedException("Method reproduceIndividuals has not been implemented yet.");
+        return offsprings;
     }
+
+    public void roulette(){
+        // Create childs
+        Individual[] childs;
+        Individual[] parents;
+        childs = new Individual[individuals.length];
+        parents = new Individual[2];
+
+        // FitnessSum
+        int fitnessSum = 0;
+        for(int i = 0; i < individuals.length; i++){
+            fitnessSum += individuals[i].computeFitness();
+        }
+        System.out.println("fitnessSum: '" + fitnessSum + "'");
+
+        // Sort individual
+        Individual tmp;
+        int is_changed = 1;
+
+        while(is_changed != 0) {
+            is_changed = 0;
+            for (int i = 0; i < individuals.length-1; i++) {
+                if (individuals[i].computeFitness() > individuals[i + 1].computeFitness()) {
+                    tmp = individuals[i + 1];
+                    individuals[i + 1] = individuals[i];
+                    individuals[i] = tmp;
+                    is_changed++;
+                }
+            }
+        }
+    }
+
 
     @Override
     public String toString()
