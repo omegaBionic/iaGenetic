@@ -94,6 +94,7 @@ public class Population {
         return offsprings;
     }
 
+
     public void tournoi() {
         // Create childs
         Individual[] childs;
@@ -102,15 +103,15 @@ public class Population {
         parents = new Individual[2];
 
         // For all childs
-        for(int i = 0; i < individuals.length; i += 2){
+        for (int i = 0; i < individuals.length; i += 2) {
             // Get parents in individuals
-            for(int j = 0; j < 2; j++){
-                int nbIndTour = (new Random().nextInt(individuals.length)+1);
+            for (int j = 0; j < 2; j++) {
+                int nbIndTour = (new Random().nextInt(individuals.length) + 1);
                 int choice = 0;
                 Individual[] selection;
                 selection = new Individual[nbIndTour];
 
-                for(int k = 0; k < nbIndTour; k++){
+                for (int k = 0; k < nbIndTour; k++) {
                     choice = new Random().nextInt(individuals.length);
 //                    System.out.println("kase: '" + kase + "'");
                     selection[k] = individuals[choice];
@@ -118,8 +119,8 @@ public class Population {
                 }
 
                 Individual alpha = selection[0];
-                for(int k = 0; k < nbIndTour; k++){
-                    if(alpha.computeFitness() <= selection[k].computeFitness()){
+                for (int k = 0; k < nbIndTour; k++) {
+                    if (alpha.computeFitness() <= selection[k].computeFitness()) {
                         alpha = selection[k];
                     }
                 }
@@ -204,7 +205,6 @@ public class Population {
                 childs[i + 1] = this.reproduceIndividuals(parents[1], parents[0], CrossPointRand);
             }
         }
-
         // Affect childs to new population
         individuals = childs;
     }
