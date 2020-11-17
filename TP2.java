@@ -24,8 +24,8 @@ public class TP2 {
     public static void main(String[] args) {
         int popSize = 50;
         int genesPerPop = 4;
-        Crosstype crosstype = Crosstype.ROULETTE;
-        //Crosstype crosstype = Crosstype.TOURNOI;
+        //Crosstype crosstype = Crosstype.ROULETTE;
+        Crosstype crosstype = Crosstype.TOURNOI;
         float mutationChance = 0.05f;
 
         // Initial population

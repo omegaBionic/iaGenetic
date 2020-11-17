@@ -50,7 +50,7 @@ public class Population {
         if (this.crosstype == Crosstype.ROULETTE) {
             this.roulette();
         } else {
-            // TODO
+            this.tournoi();
         }
     }
 
@@ -93,6 +93,49 @@ public class Population {
         Individual offsprings = new Individual(childGenes);
         return offsprings;
     }
+
+    public void tournoi() {
+        // Create childs
+        Individual[] childs;
+        Individual[] parents;
+        childs = new Individual[individuals.length];
+        parents = new Individual[2];
+
+        // For all childs
+        for(int i = 0; i < individuals.length; i += 2){
+            // Get parents in individuals
+            for(int j = 0; j < 2; j++){
+                int nbIndTour = (new Random().nextInt(individuals.length)+1);
+                int choice = 0;
+                Individual[] selection;
+                selection = new Individual[nbIndTour];
+
+                for(int k = 0; k < nbIndTour; k++){
+                    choice = new Random().nextInt(individuals.length);
+//                    System.out.println("kase: '" + kase + "'");
+                    selection[k] = individuals[choice];
+//                    System.out.println("individuals[kase]: '" + individuals[kase] + "'");
+                }
+
+                Individual alpha = selection[0];
+                for(int k = 0; k < nbIndTour; k++){
+                    if(alpha.computeFitness() <= selection[k].computeFitness()){
+                        alpha = selection[k];
+                    }
+                }
+                parents[j] = alpha;
+            }
+            // Generate child and append
+            int CrossPointRand = new Random().nextInt(genesPerPop);
+            childs[i] = this.reproduceIndividuals(parents[0], parents[1], CrossPointRand);
+            if (i < individuals.length - 1) {
+                childs[i + 1] = this.reproduceIndividuals(parents[1], parents[0], CrossPointRand);
+            }
+        }
+        // Affect childs to new population
+        individuals = childs;
+    }
+
 
     public void roulette() {
         // Create childs
