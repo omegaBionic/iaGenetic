@@ -33,6 +33,22 @@ public class Individual {
     }
 
     /**
+     * Mutation of one individual with 1% chance
+     */
+    public void mutation(){
+        // 1% chance for mutation
+        if (new Random().nextInt(100) == 0){
+            // Set random gene
+            int i = new Random().nextInt(this.genes.length);
+            if (this.genes[i] == 1){
+                this.genes[i] = 0;
+            } else {
+                this.genes[i] = 1;
+            }
+        }
+    }
+
+    /**
      * Self compute the fitness score
      */
     public void computeFitnessScore() throws ExecutionControl.NotImplementedException {
