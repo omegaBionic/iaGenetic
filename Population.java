@@ -129,10 +129,10 @@ public class Population {
             // Generate child and append
             int CrossPointRand = new Random().nextInt(genesPerPop);
             childs[i] = this.reproduceIndividuals(parents[0], parents[1], CrossPointRand);
-            childs[i].mutation();
+            childs[i].mutation(this.mutationChance);
             if (i < individuals.length - 1) {
                 childs[i + 1] = this.reproduceIndividuals(parents[1], parents[0], CrossPointRand);
-                childs[i + 1].mutation();
+                childs[i + 1].mutation(this.mutationChance);
             }
         }
         // Affect childs to new population
@@ -203,10 +203,10 @@ public class Population {
             // Generate child and append
             int CrossPointRand = new Random().nextInt(genesPerPop);
             childs[i] = this.reproduceIndividuals(parents[0], parents[1], CrossPointRand);
-            childs[i].mutation();
+            childs[i].mutation(this.mutationChance);
             if (i < individuals.length - 1) {
                 childs[i + 1] = this.reproduceIndividuals(parents[1], parents[0], CrossPointRand);
-                childs[i + 1].mutation();
+                childs[i + 1].mutation(this.mutationChance);
             }
         }
         // Affect childs to new population

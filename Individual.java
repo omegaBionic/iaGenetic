@@ -33,17 +33,21 @@ public class Individual {
     }
 
     /**
-     * Mutation of one individual with 1% chance
+     * Mutation of one individual with dynamic chance between 1% and 100%
      */
-    public void mutation(){
-        // 1% chance for mutation
-        if (new Random().nextInt(100) == 0){
-            // Set random gene
-            int i = new Random().nextInt(this.genes.length);
-            if (this.genes[i] == 1){
-                this.genes[i] = 0;
-            } else {
-                this.genes[i] = 1;
+    public void mutation(float mutation){
+        int mutationInPercent = (int) mutation * 100;
+        // if mutation
+        if (mutation != 0) {
+            // try mutation
+            if (new Random().nextInt(100) <= mutationInPercent) {
+                // Set random gene
+                int i = new Random().nextInt(this.genes.length);
+                if (this.genes[i] == 1) {
+                    this.genes[i] = 0;
+                } else {
+                    this.genes[i] = 1;
+                }
             }
         }
     }
