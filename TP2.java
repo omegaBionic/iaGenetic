@@ -22,6 +22,7 @@
 public class TP2 {
 
     public static void main(String[] args) {
+        int convergenceSize = 5;
         int popSize = 50;
         int genesPerPop = 4;
         //Crosstype crosstype = Crosstype.ROULETTE;
@@ -29,13 +30,16 @@ public class TP2 {
         float mutationChance = 0.05f;
 
         // Initial population
-        Population pop = new Population(popSize, genesPerPop, crosstype, mutationChance);
+        Population pop = new Population(popSize, genesPerPop, crosstype, mutationChance, convergenceSize);
         //System.out.println(pop);
 
 
         for (int epoch = 0; epoch < 50; epoch++) {
             pop.generateNewPopulation();
-
+            if (pop.isConverged()){
+                System.out.println("Convergence has been achieved at: '" + epoch + "'");
+                break;
+            }
         }
         System.out.println(pop);
     }

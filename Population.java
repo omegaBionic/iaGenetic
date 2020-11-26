@@ -7,6 +7,9 @@ public class Population {
     private final float mutationChance;
     private Individual[] individuals;
     private int popSize;
+    private int convergenceSize;
+    private int convergeIterator;
+    private int fitnessValueMinusOne;
 
     /**
      * Representation of a population of pseudo-randomly generated individuals
@@ -16,7 +19,7 @@ public class Population {
      * @param crosstype      the crosstype to be used by this population
      * @param mutationChance chance for an individual to mutate at birth
      */
-    public Population(int popSize, int genesPerPop, Crosstype crosstype, float mutationChance) {
+    public Population(int popSize, int genesPerPop, Crosstype crosstype, float mutationChance, int convergenceSize) {
         this.individuals = new Individual[popSize];
         this.genesPerPop = genesPerPop;
         this.crosstype = crosstype;
@@ -24,6 +27,9 @@ public class Population {
         this.popSize = popSize;
         for (int i = 0; i < popSize; i++)
             this.individuals[i] = new Individual(genesPerPop);
+        this.convergenceSize = convergenceSize;
+        this.convergeIterator = 0;
+        this.fitnessValueMinusOne = -1;
     }
 
     /**
@@ -39,6 +45,39 @@ public class Population {
         this.genesPerPop = individuals[0].getGenes().length;
         this.crosstype = crosstype;
         this.mutationChance = mutationChance;
+    }
+    /**
+     * Check if isConverged
+     *
+     * @return bool - status of isConverged
+     */
+    public boolean isConverged() {
+        boolean isConverged;
+
+        // Calculate fitnessSum
+        int fitnessSum = 0;
+        for (int i = 0; i < individuals.length; i++) {
+            fitnessSum += individuals[i].computeFitness();
+        }
+          // DEBUG
+//        System.out.println("->>>>> fitnessSum: '" + fitnessSum + "'");
+//        System.out.println("->>>>> convergeIterator: '" + convergeIterator + "'");
+//        System.out.println("->>>>> convergenceSize: '" + convergenceSize + "'\n---");
+
+        // Check if same fitnessScore of epoch -1 and increment
+        if (fitnessSum == fitnessValueMinusOne){
+            this.convergeIterator++;
+        }
+        this.fitnessValueMinusOne = fitnessSum;
+
+        // Check if converged
+        if (convergeIterator >= convergenceSize){
+            isConverged = true;
+        } else {
+            isConverged = false;
+            this.convergeIterator = 0;
+        }
+        return isConverged;
     }
 
     /**
