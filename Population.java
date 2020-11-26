@@ -46,6 +46,7 @@ public class Population {
         this.crosstype = crosstype;
         this.mutationChance = mutationChance;
     }
+
     /**
      * Check if isConverged
      *
@@ -59,19 +60,19 @@ public class Population {
         for (int i = 0; i < individuals.length; i++) {
             fitnessSum += individuals[i].computeFitness();
         }
-          // DEBUG
+        // DEBUG
 //        System.out.println("->>>>> fitnessSum: '" + fitnessSum + "'");
 //        System.out.println("->>>>> convergeIterator: '" + convergeIterator + "'");
 //        System.out.println("->>>>> convergenceSize: '" + convergenceSize + "'\n---");
 
         // Check if same fitnessScore of epoch -1 and increment
-        if (fitnessSum == fitnessValueMinusOne){
+        if (fitnessSum == fitnessValueMinusOne) {
             this.convergeIterator++;
         }
         this.fitnessValueMinusOne = fitnessSum;
 
         // Check if converged
-        if (convergeIterator >= convergenceSize){
+        if (convergeIterator >= convergenceSize) {
             isConverged = true;
         } else {
             isConverged = false;
@@ -133,7 +134,11 @@ public class Population {
         return offsprings;
     }
 
-
+    /**
+     * Launch tournoi and set winners
+     *
+     * @return bool - status of isConverged
+     */
     public void tournoi() {
         // Create childs
         Individual[] childs;
@@ -178,7 +183,11 @@ public class Population {
         individuals = childs;
     }
 
-
+    /**
+     * Launch roulette and set winners
+     *
+     * @return bool - status of isConverged
+     */
     public void roulette() {
         // Create childs
         Individual[] childs;
@@ -251,7 +260,6 @@ public class Population {
         // Affect childs to new population
         individuals = childs;
     }
-
 
     @Override
     public String toString() {

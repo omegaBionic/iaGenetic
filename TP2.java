@@ -22,7 +22,7 @@
 public class TP2 {
 
     public static void main(String[] args) {
-        int convergenceSize = 5;
+        int convergenceSize = 1;
         int popSize = 50;
         int genesPerPop = 4;
         //Crosstype crosstype = Crosstype.ROULETTE;
@@ -32,7 +32,6 @@ public class TP2 {
         // Initial population
         Population pop = new Population(popSize, genesPerPop, crosstype, mutationChance, convergenceSize);
         //System.out.println(pop);
-
 
         for (int epoch = 0; epoch < 50; epoch++) {
             pop.generateNewPopulation();

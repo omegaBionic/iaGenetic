@@ -33,9 +33,11 @@ public class Individual {
     }
 
     /**
-     * Mutation of one individual with dynamic chance between 1% and 100%
+     * Mutation of one individual with dynamic chance between 0% and 100%
+     *
+     * @param mutation for chance - [0,00; 1,00]
      */
-    public void mutation(float mutation){
+    public void mutation(float mutation) {
         int mutationInPercent = (int) mutation * 100;
         // if mutation
         if (mutation != 0) {
@@ -68,10 +70,19 @@ public class Individual {
         throw new ExecutionControl.NotImplementedException("Method computeFitnessScore has not been implemented yet.");
     }
 
+    /**
+     * getGenes
+     *
+     */
     public int[] getGenes() {
         return genes;
     }
 
+    /**
+     * getGenes for genes addition
+     *
+     * @return fitnessScore
+     */
     public int computeFitness() {
         fitnessScore = 0;
         int j = 0;
